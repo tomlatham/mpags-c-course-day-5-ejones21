@@ -11,11 +11,14 @@ project(MPAGSCipher VERSION 0.4.0)
 #   running make as 'make VERBOSE=1'.
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 # - Don't allow C++ Compiler Vendor Extensions
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 # - Use our standard set of flags
-set(CMAKE_CXX_FLAGS "-Wall -Wextra -Werror -Wfatal-errors -Wshadow -pedantic")
+set(CMAKE_CXX_FLAGS "-Wall -Wextra -Wfatal-errors -Werror -Wshadow -pedantic")
 
 # - Add the MPAGSCipher subdirectory to the build
 add_subdirectory(MPAGSCipher)

@@ -26,22 +26,20 @@ void VigenereCipher::setKey( const std::string& key )
   // Check if the key is empty and replace with default if so
   if ( key_.empty() ) {
     key_ = "DEFAULT";
-    std::cout << "No key was provided. Key set to " << key_ << "." << std::endl; 
+    std::cerr << "[warning] No or invalid key was provided. Key set to " << key_ << "." << std::endl; 
   }  
 
   // Loop over the key
   for ( std::string::size_type i{0}; i<key_.size(); ++i) {
  
     // Find the letter position in the alphabet
-    size_t position{0};
-    position = Alphabet::alphabet.find(key_[i]);
+    size_t position { Alphabet::alphabet.find(key_[i]) };
 
     // Create a CaesarCipher using this position as a key
     CaesarCipher vcipher { position };
 
     // Insert a std::pair of the letter and CaesarCipher into the lookup
-    auto chtoCC = std::make_pair( key_[i], vcipher );
-    charLookup_.insert(chtoCC);
+    charLookup_.insert( std::make_pair( key_[i], vcipher ) );
   }
 }
 
@@ -53,8 +51,7 @@ std::string VigenereCipher::applyCipher( const std::string& inputText, const Cip
     
     // Find the corresponding letter in the key,
     // repeating/truncating as required
-    char keyletter {'a'};
-    keyletter = key_[i % key_.size()];
+    char keyletter { key_[i % key_.size()] };
 
     // Find the Caesar cipher from the lookup
     auto vcipheriter = charLookup_.find(keyletter);

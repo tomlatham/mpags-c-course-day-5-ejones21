@@ -4,19 +4,20 @@
 #include "PlayfairCipher.hpp"
 #include "VigenereCipher.hpp"
 
-std::unique_ptr<Cipher> cipherFactory ( const CipherType type, std::string applyCipher ) {
+std::unique_ptr<Cipher> cipherFactory ( const CipherType type, const std::string& key ) {
   switch (type) {
     case CipherType::Caesar : 
-      return std::make_unique<CaesarCipher>( applyCipher );
+      return std::make_unique<CaesarCipher>( key );
       
     case CipherType::Playfair :
-      return std::make_unique<PlayfairCipher>( applyCipher );
+      return std::make_unique<PlayfairCipher>( key );
 
     case CipherType::Vigenere :
-      return std::make_unique<VigenereCipher>( applyCipher );
-
-    default : throw std::runtime_error("No such cipher") ;
-      return nullptr;
+      return std::make_unique<VigenereCipher>( key );
   }
+
+  // It should not be possible to drop out of the switch
+  // but just in case return a (managed) nullptr
+  return std::unique_ptr<Cipher>();
 }
     
